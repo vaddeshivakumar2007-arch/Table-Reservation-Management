@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Restaurant Table Reservation Management System – Shiva</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body id="adminDashboardContainer">
+
+  <!-- Top Announcement Bar -->
+  <div class="top-announcement" style="background: #090b0c;">
+    <div class="container">
+      <div>
+        <i class="fas fa-user-shield text-gold"></i> Staff Management System – Shiva
+      </div>
+      <div>
+        <a href="index.html" target="_blank"><i class="fas fa-external-link-alt"></i> View Public Website</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Navigation Bar -->
+  <nav class="navbar" style="border-bottom: 2px solid var(--primary);">
+    <div class="container">
+      <a href="admin-dashboard.html" class="nav-brand">
+        <div class="brand-logo-icon" style="background: #111;"><i class="fas fa-utensils text-gold"></i></div>
+        <div>Admin Portal <span class="text-gold">– Shiva</span></div>
+      </a>
+
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <ul class="nav-menu">
+        <li><a href="admin-dashboard.html" class="nav-link active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+        <li><a href="manage-tables.html" class="nav-link"><i class="fas fa-chair"></i> Manage Tables</a></li>
+        <li><a href="manage-reservations.html" class="nav-link"><i class="fas fa-book"></i> Reservations</a></li>
+        <li><a href="manage-customers.html" class="nav-link"><i class="fas fa-users"></i> Customers</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button onclick="handleAdminLogout()" class="btn btn-dark btn-sm">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Admin Main Dashboard Wrapper -->
+  <main class="dashboard-wrapper">
+    <div class="container">
+
+      <!-- Header Banner -->
+      <div class="dashboard-header">
+        <div class="dashboard-header-text">
+          <h1>Restaurant Operations <span class="text-gold">Overview</span></h1>
+          <p>Real-time monitor of restaurant tables, incoming customer bookings, and dining floor statuses.</p>
+        </div>
+        <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
+          <a href="manage-tables.html" class="btn btn-outline btn-sm">
+            <i class="fas fa-plus"></i> Add New Table
+          </a>
+          <a href="manage-reservations.html" class="btn btn-primary btn-sm">
+            <i class="fas fa-clipboard-list"></i> Review Reservations
+          </a>
+        </div>
+      </div>
+
+      <!-- Live Statistics Grid (5 KPIs) -->
+      <div class="stats-grid">
+        <div class="stat-card" style="border-left-color: #0d6efd;">
+          <div class="stat-icon" style="background: rgba(13, 110, 253, 0.12); color: #0d6efd;"><i class="fas fa-users"></i></div>
+          <div class="stat-info">
+            <h4>Total Customers</h4>
+            <div class="stat-value" id="statTotalCustomers">0</div>
+          </div>
+        </div>
+
+        <div class="stat-card" style="border-left-color: var(--primary);">
+          <div class="stat-icon"><i class="fas fa-chair"></i></div>
+          <div class="stat-info">
+            <h4>Total Tables</h4>
+            <div class="stat-value" id="statTotalTables">0</div>
+          </div>
+        </div>
+
+        <div class="stat-card" style="border-left-color: var(--success);">
+          <div class="stat-icon" style="background: rgba(25, 135, 84, 0.12); color: var(--success);"><i class="fas fa-check-circle"></i></div>
+          <div class="stat-info">
+            <h4>Available Tables</h4>
+            <div class="stat-value" id="statAvailableTables">0</div>
+          </div>
+        </div>
+
+        <div class="stat-card" style="border-left-color: #6f42c1;">
+          <div class="stat-icon" style="background: rgba(111, 66, 193, 0.12); color: #6f42c1;"><i class="fas fa-calendar-alt"></i></div>
+          <div class="stat-info">
+            <h4>Total Bookings</h4>
+            <div class="stat-value" id="statTotalReservations">0</div>
+          </div>
+        </div>
+
+        <div class="stat-card" style="border-left-color: var(--warning);">
+          <div class="stat-icon" style="background: rgba(255, 193, 7, 0.15); color: #b28300;"><i class="fas fa-clock"></i></div>
+          <div class="stat-info">
+            <h4>Pending Review</h4>
+            <div class="stat-value" id="statPendingReservations">0</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Reservations Section -->
+      <div style="background: #ffffff; padding: 2rem; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); margin-bottom: 2.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+          <div>
+            <h3 style="font-size: 1.35rem; margin: 0;"><i class="fas fa-concierge-bell text-gold"></i> Recent Dining Reservations</h3>
+            <p style="color: var(--text-muted); font-size: 0.88rem; margin-top: 0.2rem;">Quickly confirm or reject incoming guest table requests.</p>
+          </div>
+          <a href="manage-reservations.html" class="btn btn-outline btn-sm">
+            Manage All Reservations <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Booking ID</th>
+                <th>Customer Name</th>
+                <th>Table</th>
+                <th>Date & Time</th>
+                <th>Party Size</th>
+                <th>Status</th>
+                <th>Quick Actions</th>
+              </tr>
+            </thead>
+            <tbody id="recentBookingsTbody">
+              <tr>
+                <td colspan="7" class="text-center" style="padding: 2.5rem;">
+                  <i class="fas fa-spinner fa-spin text-gold" style="font-size: 1.8rem;"></i>
+                  <p style="margin-top: 0.5rem; color: #888;">Fetching live reservation stream...</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Quick Management Cards -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+        <div style="background: #fff; padding: 1.75rem; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <h4 style="font-size: 1.15rem; margin-bottom: 0.5rem;"><i class="fas fa-chair text-gold"></i> Restaurant Tables</h4>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.25rem;">
+              Add new tables, modify seating capacities, change location zones, or update operational status.
+            </p>
+          </div>
+          <a href="manage-tables.html" class="btn btn-primary btn-sm">Go to Tables Management</a>
+        </div>
+
+        <div style="background: #fff; padding: 1.75rem; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <h4 style="font-size: 1.15rem; margin-bottom: 0.5rem;"><i class="fas fa-calendar-check text-gold"></i> Complete Booking Master</h4>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.25rem;">
+              Filter reservations by Pending, Confirmed, Cancelled, or Rejected status across specific dates.
+            </p>
+          </div>
+          <a href="manage-reservations.html" class="btn btn-primary btn-sm">Go to Reservations Master</a>
+        </div>
+
+        <div style="background: #fff; padding: 1.75rem; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <h4 style="font-size: 1.15rem; margin-bottom: 0.5rem;"><i class="fas fa-users text-gold"></i> Registered Diners</h4>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.25rem;">
+              Review registered customer accounts, view booking history per user, and manage customer records.
+            </p>
+          </div>
+          <a href="manage-customers.html" class="btn btn-primary btn-sm">Go to Customer Directory</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2026 Restaurant Table Reservation Management System – Shiva. Admin Operations Portal.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
+

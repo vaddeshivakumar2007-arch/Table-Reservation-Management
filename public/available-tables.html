@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Available Tables | Restaurant Table Reservation Management System – Shiva</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-announcement">
+    <div class="container">
+      <div>
+        <i class="fas fa-chair text-gold"></i> Live Restaurant Table Availability & Seating Management
+      </div>
+      <div>
+        <span>Project Developer: <strong>Shiva</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-brand">
+        <div class="brand-logo-icon"><i class="fas fa-utensils"></i></div>
+        <div>Restaurant System <span>– Shiva</span></div>
+      </a>
+
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About & Developer</a></li>
+        <li><a href="available-tables.html" class="nav-link active">Available Tables</a></li>
+        <li><a href="reservation.html" class="nav-link">Book a Table</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-outline btn-sm"><i class="fas fa-sign-in-alt"></i> Login</a>
+        <a href="register.html" class="btn btn-primary btn-sm"><i class="fas fa-user-plus"></i> Register</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <div style="background: linear-gradient(rgba(15, 18, 20, 0.75), rgba(15, 18, 20, 0.85)), url('images/tables.jpg') center/cover no-repeat; padding: 4rem 0; color: #fff; text-align: center;">
+    <div class="container">
+      <span class="section-subtitle">Real-Time Seating Layout</span>
+      <h1 style="color: #fff; font-size: 2.6rem; margin-top: 0.5rem;">Explore Available Dining Tables</h1>
+      <p style="color: #ced4da; max-width: 650px; margin: 0.5rem auto 0;">
+        Filter by date, time slot, and guest party size to see unreserved dining spots across our main hall, terrace, and private lounges.
+      </p>
+    </div>
+  </div>
+
+  <!-- Main Tables Container -->
+  <main class="py-5">
+    <div class="container">
+
+      <!-- Interactive Filter Bar -->
+      <div class="filter-bar">
+        <form id="tableFilterForm" class="filter-form">
+          <div class="form-group">
+            <label for="filterDate"><i class="fas fa-calendar-day text-gold"></i> Reservation Date</label>
+            <input type="date" id="filterDate" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label for="filterTime"><i class="fas fa-clock text-gold"></i> Dining Time</label>
+            <input type="time" id="filterTime" class="form-control" value="19:00">
+          </div>
+
+          <div class="form-group">
+            <label for="filterGuests"><i class="fas fa-users text-gold"></i> Party Size (Guests)</label>
+            <select id="filterGuests" class="form-control">
+              <option value="">Any Party Size</option>
+              <option value="2">2 Guests (Couple / Pair)</option>
+              <option value="4">4 Guests (Standard Table)</option>
+              <option value="6">6 Guests (Family Table)</option>
+              <option value="8">8 Guests (Large Group)</option>
+              <option value="10">10+ Guests (Banquet)</option>
+            </select>
+          </div>
+
+          <div style="display: flex; gap: 0.6rem;">
+            <button type="submit" class="btn btn-primary" style="height: 48px;">
+              <i class="fas fa-filter"></i> Check Availability
+            </button>
+            <button type="button" onclick="window.location.href='available-tables.html'" class="btn btn-outline" style="height: 48px;" title="Reset filters">
+              <i class="fas fa-redo"></i> Reset
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Live Dynamic Tables Grid -->
+      <div id="availableTablesContainer" class="tables-grid">
+        <!-- Rendered dynamically by reservation.js -->
+        <div style="grid-column: 1/-1; text-align: center; padding: 3rem;">
+          <i class="fas fa-spinner fa-spin" style="font-size: 2.5rem; color: var(--primary);"></i>
+          <p style="margin-top: 1rem; color: var(--text-muted);">Scanning table availability...</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2026 Restaurant Table Reservation Management System – Shiva. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/reservation.js"></script>
+</body>
+</html>
+

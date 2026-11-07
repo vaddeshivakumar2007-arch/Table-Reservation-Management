@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Registration | Restaurant Table Reservation Management System – Shiva</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-announcement">
+    <div class="container">
+      <div>
+        <i class="fas fa-utensils text-gold"></i> Restaurant Table Reservation Management System – Shiva
+      </div>
+      <div>
+        <a href="login.html"><i class="fas fa-sign-in-alt"></i> Existing Customer? Login</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-brand">
+        <div class="brand-logo-icon"><i class="fas fa-utensils"></i></div>
+        <div>Restaurant System <span>– Shiva</span></div>
+      </a>
+
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About & Developer</a></li>
+        <li><a href="available-tables.html" class="nav-link">Available Tables</a></li>
+        <li><a href="reservation.html" class="nav-link">Book a Table</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-outline btn-sm"><i class="fas fa-sign-in-alt"></i> Login</a>
+        <a href="register.html" class="btn btn-primary btn-sm"><i class="fas fa-user-plus"></i> Register</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Auth Content Wrapper -->
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.4rem;">
+          <i class="fas fa-user-plus"></i>
+        </div>
+        <h2>Create Account</h2>
+        <p>Register as a dining customer to reserve tables online.</p>
+      </div>
+
+      <form id="registerForm">
+        <div class="form-group" style="margin-bottom: 1.25rem;">
+          <label for="name"><i class="fas fa-user text-gold"></i> Full Name</label>
+          <input type="text" id="name" class="form-control" placeholder="Enter your full name" required>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 1.25rem;">
+          <label for="email"><i class="fas fa-envelope text-gold"></i> Email Address</label>
+          <input type="email" id="email" class="form-control" placeholder="example@email.com" required>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 1.25rem;">
+          <label for="phone"><i class="fas fa-phone text-gold"></i> Phone Number</label>
+          <input type="tel" id="phone" class="form-control" placeholder="e.g. 9876543210" pattern="[0-9]{10}" title="Please enter a valid 10-digit mobile number">
+        </div>
+
+        <div class="form-group" style="margin-bottom: 1.25rem;">
+          <label for="password"><i class="fas fa-lock text-gold"></i> Password</label>
+          <input type="password" id="password" class="form-control" placeholder="Min. 6 characters" minlength="6" required>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 1.5rem;">
+          <label for="confirmPassword"><i class="fas fa-lock text-gold"></i> Confirm Password</label>
+          <input type="password" id="confirmPassword" class="form-control" placeholder="Re-enter your password" minlength="6" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1rem; padding: 0.9rem;">
+          <i class="fas fa-user-check"></i> Register Account
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        Already have a customer account? <a href="login.html">Login Here</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2026 Restaurant Table Reservation Management System – Shiva. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/customer.js"></script>
+</body>
+</html>
+

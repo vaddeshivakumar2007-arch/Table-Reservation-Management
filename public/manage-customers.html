@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Customers | Admin – Shiva</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body id="manageCustomersContainer">
+
+  <!-- Top Announcement Bar -->
+  <div class="top-announcement" style="background: #090b0c;">
+    <div class="container">
+      <div>
+        <i class="fas fa-users-cog text-gold"></i> Registered Customer Directory – Shiva
+      </div>
+      <div>
+        <a href="admin-dashboard.html"><i class="fas fa-arrow-left"></i> Back to Admin Dashboard</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Navigation Bar -->
+  <nav class="navbar" style="border-bottom: 2px solid var(--primary);">
+    <div class="container">
+      <a href="admin-dashboard.html" class="nav-brand">
+        <div class="brand-logo-icon" style="background: #111;"><i class="fas fa-utensils text-gold"></i></div>
+        <div>Admin Portal <span class="text-gold">– Shiva</span></div>
+      </a>
+
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <ul class="nav-menu">
+        <li><a href="admin-dashboard.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+        <li><a href="manage-tables.html" class="nav-link"><i class="fas fa-chair"></i> Manage Tables</a></li>
+        <li><a href="manage-reservations.html" class="nav-link"><i class="fas fa-book"></i> Reservations</a></li>
+        <li><a href="manage-customers.html" class="nav-link active"><i class="fas fa-users"></i> Customers</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button onclick="handleAdminLogout()" class="btn btn-dark btn-sm">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content Wrapper -->
+  <main class="dashboard-wrapper">
+    <div class="container">
+      
+      <!-- Header -->
+      <div class="dashboard-header">
+        <div class="dashboard-header-text">
+          <h1>Registered Diners <span class="text-gold">Directory</span></h1>
+          <p>View diner profiles, contact information, booking frequency, and manage customer accounts.</p>
+        </div>
+      </div>
+
+      <!-- Customers Table Card -->
+      <div style="background: #ffffff; padding: 2rem; border-radius: var(--radius-md); box-shadow: var(--shadow-sm);">
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Customer ID</th>
+                <th>Full Name</th>
+                <th>Email Address</th>
+                <th>Phone Number</th>
+                <th>Joined On</th>
+                <th>Activity Stats</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="customersAdminTbody">
+              <tr>
+                <td colspan="7" class="text-center" style="padding: 2.5rem;">
+                  <i class="fas fa-spinner fa-spin text-gold" style="font-size: 1.8rem;"></i>
+                  <p style="margin-top: 0.5rem; color: #888;">Fetching customer records...</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2026 Restaurant Table Reservation Management System – Shiva. Admin Customers Controller.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
+

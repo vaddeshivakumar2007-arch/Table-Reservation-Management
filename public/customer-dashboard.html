@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Dashboard | Restaurant Table Reservation Management System – Shiva</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body id="customerDashboard">
+
+  <!-- Top Announcement Bar -->
+  <div class="top-announcement">
+    <div class="container">
+      <div>
+        <i class="fas fa-utensils text-gold"></i> Restaurant Table Reservation Management System – Shiva
+      </div>
+      <div>
+        <span>Customer Portal Active</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-brand">
+        <div class="brand-logo-icon"><i class="fas fa-utensils"></i></div>
+        <div>Restaurant System <span>– Shiva</span></div>
+      </a>
+
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <ul class="nav-menu">
+        <li><a href="customer-dashboard.html" class="nav-link active">Dashboard</a></li>
+        <li><a href="available-tables.html" class="nav-link">Available Tables</a></li>
+        <li><a href="reservation.html" class="nav-link">Book Table</a></li>
+        <li><a href="my-reservations.html" class="nav-link">My Reservations</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <!-- Filled automatically by updateCustomerNav() -->
+        <button onclick="handleCustomerLogout()" class="btn btn-dark btn-sm">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Dashboard Content -->
+  <main class="dashboard-wrapper">
+    <div class="container">
+      
+      <!-- Welcome Header -->
+      <div class="dashboard-header">
+        <div class="dashboard-header-text">
+          <h1>Welcome, <span id="customerWelcomeName" class="text-gold">Customer</span>!</h1>
+          <p>
+            <i class="fas fa-envelope"></i> <span id="customerEmail">loading...</span> | 
+            <i class="fas fa-phone"></i> <span id="customerPhone">loading...</span>
+          </p>
+        </div>
+        <div style="display: flex; gap: 0.8rem; flex-wrap: wrap;">
+          <a href="reservation.html" class="btn btn-primary">
+            <i class="fas fa-plus-circle"></i> Reserve a Table
+          </a>
+          <a href="available-tables.html" class="btn btn-outline">
+            <i class="fas fa-search"></i> Check Tables
+          </a>
+        </div>
+      </div>
+
+      <!-- Customer Reservation Stats -->
+      <div class="stats-grid">
+        <div class="stat-card" style="border-left-color: var(--primary);">
+          <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+          <div class="stat-info">
+            <h4>Total Bookings</h4>
+            <div class="stat-value" id="statTotalReservations">0</div>
+          </div>
+        </div>
+
+        <div class="stat-card" style="border-left-color: var(--warning);">
+          <div class="stat-icon" style="background: rgba(255, 193, 7, 0.15); color: #c48b00;"><i class="fas fa-hourglass-half"></i></div>
+          <div class="stat-info">
+            <h4>Pending Review</h4>
+            <div class="stat-value" id="statPendingReservations">0</div>
+          </div>
+        </div>
+
+        <div class="stat-card" style="border-left-color: var(--success);">
+          <div class="stat-icon" style="background: rgba(25, 135, 84, 0.15); color: var(--success);"><i class="fas fa-check-circle"></i></div>
+          <div class="stat-info">
+            <h4>Confirmed</h4>
+            <div class="stat-value" id="statConfirmedReservations">0</div>
+          </div>
+        </div>
+
+        <div class="stat-card" style="border-left-color: var(--danger);">
+          <div class="stat-icon" style="background: rgba(220, 53, 69, 0.15); color: var(--danger);"><i class="fas fa-ban"></i></div>
+          <div class="stat-info">
+            <h4>Cancelled</h4>
+            <div class="stat-value" id="statCancelledReservations">0</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions and Restaurant Preview Banner -->
+      <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; margin-bottom: 2.5rem;">
+        
+        <!-- Recent Reservations Card -->
+        <div style="background: #fff; padding: 2rem; border-radius: var(--radius-md); box-shadow: var(--shadow-sm);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <h3 style="font-size: 1.3rem;"><i class="fas fa-history text-gold"></i> Recent Bookings</h3>
+            <a href="my-reservations.html" style="color: var(--primary); font-size: 0.9rem; font-weight: 600;">
+              View All History <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+
+          <div id="recentReservationsPreview">
+            <!-- Dynamic recent bookings table -->
+            <div style="text-align: center; padding: 2rem;">
+              <i class="fas fa-spinner fa-spin" style="font-size: 1.8rem; color: var(--primary);"></i>
+              <p style="margin-top: 0.5rem; color: #888;">Loading your reservations...</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Special Dining Perks Card -->
+        <div style="background: #151a1d; color: #fff; padding: 2rem; border-radius: var(--radius-md); display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <span class="section-subtitle" style="color: var(--primary);">Exclusive Ambiance</span>
+            <h3 style="color: #fff; font-size: 1.35rem; margin-bottom: 0.8rem;">Sunset Window & Terrace Dining</h3>
+            <p style="color: #aaa; font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.25rem;">
+              Planning an anniversary or business meeting? Tables are equipped with scenic window views, privacy acoustics, and dedicated beverage sommeliers.
+            </p>
+          </div>
+          <div style="border-radius: 8px; overflow: hidden; margin-bottom: 1.25rem;">
+            <img src="images/food-pasta.jpg" alt="Dining Specialty" style="width: 100%; height: 140px; object-fit: cover;">
+          </div>
+          <a href="reservation.html" class="btn btn-primary btn-sm" style="width: 100%;">
+            <i class="fas fa-utensils"></i> Book A Table Now
+          </a>
+        </div>
+      </div>
+
+      <!-- Culinary Inspiration Showcase -->
+      <div style="background: #ffffff; padding: 2rem; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); margin-bottom: 2.5rem;">
+        <div style="margin-bottom: 1.5rem;">
+          <span class="section-subtitle">Gastronomic Highlights</span>
+          <h3 style="font-size: 1.35rem; margin-bottom: 0.3rem;"><i class="fas fa-utensils text-gold"></i> Experience Our Master Chef Creations</h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">Complimentary sommelier pairing and chef tastings with every VIP and banquet table reservation.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem;">
+          <div style="border-radius: var(--radius-sm); overflow: hidden; border: 1px solid #eee; background: #faf8f5;">
+            <img src="images/food-starter.jpg" alt="Artisan Appetizer" style="width: 100%; height: 140px; object-fit: cover;">
+            <div style="padding: 0.85rem;">
+              <strong style="font-size: 0.95rem; display: block;">Farm Truffle Hors D'oeuvres</strong>
+              <small style="color: var(--text-muted);">Starter Course</small>
+            </div>
+          </div>
+
+          <div style="border-radius: var(--radius-sm); overflow: hidden; border: 1px solid #eee; background: #faf8f5;">
+            <img src="images/food1.jpg" alt="Signature Entree" style="width: 100%; height: 140px; object-fit: cover;">
+            <div style="padding: 0.85rem;">
+              <strong style="font-size: 0.95rem; display: block;">Executive Master Steak</strong>
+              <small style="color: var(--text-muted);">Signature Main</small>
+            </div>
+          </div>
+
+          <div style="border-radius: var(--radius-sm); overflow: hidden; border: 1px solid #eee; background: #faf8f5;">
+            <img src="images/drinks.jpg" alt="Craft Mixology" style="width: 100%; height: 140px; object-fit: cover;">
+            <div style="padding: 0.85rem;">
+              <strong style="font-size: 0.95rem; display: block;">Artisan Botanical Mocktails</strong>
+              <small style="color: var(--text-muted);">Beverage Pairing</small>
+            </div>
+          </div>
+
+          <div style="border-radius: var(--radius-sm); overflow: hidden; border: 1px solid #eee; background: #faf8f5;">
+            <img src="images/food-dessert.jpg" alt="French Patisserie" style="width: 100%; height: 140px; object-fit: cover;">
+            <div style="padding: 0.85rem;">
+              <strong style="font-size: 0.95rem; display: block;">Decadent Lava Patisserie</strong>
+              <small style="color: var(--text-muted);">Dessert Finale</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2026 Restaurant Table Reservation Management System – Shiva. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/customer.js"></script>
+  <script src="js/reservation.js"></script>
+</body>
+</html>
+

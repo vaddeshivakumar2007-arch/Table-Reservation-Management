@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Portal Login | Restaurant Table Reservation Management System – Shiva</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-announcement" style="background: #090b0c;">
+    <div class="container">
+      <div>
+        <i class="fas fa-shield-alt text-gold"></i> Secure Administrative & Staff Portal – Shiva
+      </div>
+      <div>
+        <a href="index.html"><i class="fas fa-globe"></i> Back to Customer Website</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar" style="border-bottom: 2px solid var(--primary);">
+    <div class="container">
+      <a href="index.html" class="nav-brand">
+        <div class="brand-logo-icon" style="background: #111;"><i class="fas fa-user-shield text-gold"></i></div>
+        <div>Admin Portal <span class="text-gold">– Shiva</span></div>
+      </a>
+
+      <div class="nav-actions">
+        <a href="index.html" class="btn btn-outline btn-sm"><i class="fas fa-home"></i> Customer Home</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Admin Login Form Container -->
+  <div class="auth-wrapper" style="background: linear-gradient(rgba(10, 12, 14, 0.88), rgba(10, 12, 14, 0.94)), url('images/restaurant.jpg') center/cover no-repeat;">
+    <div class="auth-card" style="border-top: 5px solid var(--primary); box-shadow: var(--shadow-lg);">
+      <div class="auth-header">
+        <div style="width: 55px; height: 55px; border-radius: 50%; background: #1a1e22; color: var(--primary); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.6rem; border: 1px solid var(--dark-border);">
+          <i class="fas fa-lock"></i>
+        </div>
+        <h2>Restaurant Staff Login</h2>
+        <p>Access the administrative dashboard to oversee tables, bookings, and customer accounts.</p>
+      </div>
+
+      <!-- Quick Demo Admin Credentials Helper -->
+      <div style="background: #1c2227; border: 1px dashed var(--primary); padding: 0.85rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.85rem; color: #e0d0b8;">
+        <i class="fas fa-key text-gold"></i> <strong>Administrative Credentials:</strong><br>
+        Email: <code>admin@restaurant.com</code><br>
+        Password: <code>admin123</code>
+        <button type="button" onclick="fillAdminCredentials()" style="display: block; margin-top: 0.5rem; background: var(--primary); color: #fff; border: none; padding: 0.25rem 0.65rem; border-radius: 4px; font-size: 0.78rem; cursor: pointer;">
+          Auto Fill Admin Credentials
+        </button>
+      </div>
+
+      <form id="adminLoginForm">
+        <div class="form-group" style="margin-bottom: 1.25rem;">
+          <label for="adminEmail"><i class="fas fa-envelope text-gold"></i> Staff / Admin Email</label>
+          <input type="email" id="adminEmail" class="form-control" placeholder="admin@restaurant.com" required>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 1.75rem;">
+          <label for="adminPassword"><i class="fas fa-lock text-gold"></i> Password</label>
+          <input type="password" id="adminPassword" class="form-control" placeholder="Enter administrative password" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1rem; padding: 0.9rem;">
+          <i class="fas fa-sign-in-alt"></i> Login to Management Portal
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        <a href="login.html" style="color: var(--text-muted);"><i class="fas fa-user"></i> Are you a diner? Switch to Customer Login</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2026 Restaurant Table Reservation Management System – Shiva. Admin Authentication & Session Protected.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/admin.js"></script>
+  <script>
+    function fillAdminCredentials() {
+      document.getElementById('adminEmail').value = 'admin@restaurant.com';
+      document.getElementById('adminPassword').value = 'admin123';
+    }
+  </script>
+</body>
+</html>
+

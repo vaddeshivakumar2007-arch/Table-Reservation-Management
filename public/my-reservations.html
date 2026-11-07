@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Reservations | Restaurant Table Reservation Management System – Shiva</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-announcement">
+    <div class="container">
+      <div>
+        <i class="fas fa-utensils text-gold"></i> Restaurant Table Reservation Management System – Shiva
+      </div>
+      <div>
+        <span>Customer Account Portal</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-brand">
+        <div class="brand-logo-icon"><i class="fas fa-utensils"></i></div>
+        <div>Restaurant System <span>– Shiva</span></div>
+      </a>
+
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <ul class="nav-menu">
+        <li><a href="customer-dashboard.html" class="nav-link">Dashboard</a></li>
+        <li><a href="available-tables.html" class="nav-link">Available Tables</a></li>
+        <li><a href="reservation.html" class="nav-link">Book a Table</a></li>
+        <li><a href="my-reservations.html" class="nav-link active">My Reservations</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button onclick="handleCustomerLogout()" class="btn btn-dark btn-sm">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header Banner -->
+  <div style="background: linear-gradient(rgba(15, 18, 20, 0.78), rgba(15, 18, 20, 0.88)), url('images/hero-banner.jpg') center/cover no-repeat; padding: 3.5rem 0; color: #fff; text-align: center;">
+    <div class="container">
+      <span class="section-subtitle">Personal Dining History</span>
+      <h1 style="color: #fff; font-size: 2.6rem; margin-top: 0.5rem;">My Table Reservations</h1>
+      <p style="color: #ced4da; max-width: 600px; margin: 0.5rem auto 0;">
+        Track the live status of your dining reservations or cancel upcoming bookings when necessary.
+      </p>
+    </div>
+  </div>
+
+  <!-- Main Content Area -->
+  <main class="py-5" style="background: #f4f6f8;">
+    <div class="container">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h2 style="font-size: 1.5rem; margin: 0;"><i class="fas fa-history text-gold"></i> Reservation Records</h2>
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.25rem;">
+            Review your confirmed, pending, and past dining appointments.
+          </p>
+        </div>
+        <a href="reservation.html" class="btn btn-primary">
+          <i class="fas fa-plus"></i> Reserve Another Table
+        </a>
+      </div>
+
+      <!-- Reservations Container (Filled via reservation.js) -->
+      <div id="myReservationsContainer">
+        <div style="text-align: center; padding: 3rem;">
+          <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: var(--primary);"></i>
+          <p style="margin-top: 0.8rem; color: #777;">Loading your personal reservations...</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2026 Restaurant Table Reservation Management System – Shiva. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/reservation.js"></script>
+</body>
+</html>
+

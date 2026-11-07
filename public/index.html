@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurant Table Reservation Management System</title>
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="top-announcement">
+    <div class="container announcement-content">
+      <div>
+        <i class="fas fa-utensils text-gold"></i> Restaurant Table Reservation Management System
+      </div>
+      <div>
+        <i class="fas fa-clock text-gold"></i> Open Daily: 11:00 AM – 11:00 PM | <i class="fas fa-phone-alt text-gold"></i> Hotline: +91 98765 43210
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Navigation Bar -->
+  <nav class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-brand">
+        <div class="brand-logo-icon"><i class="fas fa-utensils"></i></div>
+        <div class="brand-text">
+          <span>Shiva Gourmet</span>
+          <small>Table Reservation System</small>
+        </div>
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="#dashboard" class="nav-link active">Dashboard</a></li>
+        <li><a href="#tables-section" class="nav-link">Available Tables</a></li>
+        <li><a href="#ambience-section" class="nav-link">Ambience & Team</a></li>
+        <li><a href="#booking-section" class="nav-link">Book a Table</a></li>
+        <li><a href="#register-section" class="nav-link">Customer Registration</a></li>
+        <li><a href="#reservations-section" class="nav-link">Manage Reservations</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="#booking-section" class="btn btn-primary btn-sm">
+          <i class="fas fa-calendar-plus"></i> Reserve Now
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero-section">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <i class="fas fa-crown"></i> Premium Fine Dining Experience
+        </div>
+        <h1 class="hero-title">Reserve Your Perfect Dining Table <span>Online</span></h1>
+        <p class="hero-text">
+          Experience real-time table availability, instant slot validation with automatic 2-hour conflict prevention, and streamlined dining reservations powered by Node.js, Express, and MySQL.
+        </p>
+        <div class="hero-buttons">
+          <a href="#tables-section" class="btn btn-primary">
+            <i class="fas fa-search"></i> Check Available Tables
+          </a>
+          <a href="#register-section" class="btn btn-outline-light">
+            <i class="fas fa-user-plus"></i> Register Customer
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Section 1: Dashboard Overview (KPI Statistics) -->
+    <section class="py-5" id="dashboard">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">Operations Overview</span>
+          <h2 class="section-title">System Metrics Dashboard</h2>
+          <p class="section-description">Real-time statistics synchronized directly with MySQL database.</p>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card border-blue">
+            <div class="stat-icon icon-blue"><i class="fas fa-users"></i></div>
+            <div class="stat-info">
+              <h4>Total Customers</h4>
+              <div class="stat-value" id="statTotalCustomers">0</div>
+            </div>
+          </div>
+
+          <div class="stat-card border-gold">
+            <div class="stat-icon icon-gold"><i class="fas fa-chair"></i></div>
+            <div class="stat-info">
+              <h4>Total Tables</h4>
+              <div class="stat-value" id="statTotalTables">0</div>
+            </div>
+          </div>
+
+          <div class="stat-card border-green">
+            <div class="stat-icon icon-green"><i class="fas fa-check-circle"></i></div>
+            <div class="stat-info">
+              <h4>Available Tables</h4>
+              <div class="stat-value" id="statAvailableTables">0</div>
+            </div>
+          </div>
+
+          <div class="stat-card border-purple">
+            <div class="stat-icon icon-purple"><i class="fas fa-calendar-check"></i></div>
+            <div class="stat-info">
+              <h4>Total Bookings</h4>
+              <div class="stat-value" id="statTotalReservations">0</div>
+            </div>
+          </div>
+
+          <div class="stat-card border-success">
+            <div class="stat-icon icon-success"><i class="fas fa-calendar-alt"></i></div>
+            <div class="stat-info">
+              <h4>Confirmed</h4>
+              <div class="stat-value" id="statConfirmedReservations">0</div>
+            </div>
+          </div>
+
+          <div class="stat-card border-red">
+            <div class="stat-icon icon-red"><i class="fas fa-calendar-times"></i></div>
+            <div class="stat-info">
+              <h4>Cancelled</h4>
+              <div class="stat-value" id="statCancelledReservations">0</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Table Availability & Filter Controls -->
+    <section class="py-5 bg-light" id="tables-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">Dining Floor Layout</span>
+          <h2 class="section-title">Check Table Availability</h2>
+          <p class="section-description">Filter tables by date, dining time, and guest count to find unoccupied spots.</p>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="filter-card">
+          <form id="availabilityForm" class="filter-form">
+            <div class="form-group">
+              <label for="filterDate"><i class="fas fa-calendar-day text-gold"></i> Reservation Date</label>
+              <input type="date" id="filterDate" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+              <label for="filterTime"><i class="fas fa-clock text-gold"></i> Dining Time</label>
+              <input type="time" id="filterTime" class="form-control" value="19:00" required>
+            </div>
+
+            <div class="form-group">
+              <label for="filterGuests"><i class="fas fa-user-friends text-gold"></i> Guests</label>
+              <input type="number" id="filterGuests" class="form-control" min="1" max="20" placeholder="e.g. 4">
+            </div>
+
+            <div class="filter-actions">
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-search"></i> Check Availability
+              </button>
+              <button type="button" id="resetFilterBtn" class="btn btn-outline">
+                <i class="fas fa-redo"></i> Reset
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Dynamic Tables Cards Grid -->
+        <div class="tables-grid" id="tablesContainer">
+          <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin text-gold"></i>
+            <p>Loading restaurant tables from MySQL database...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2.5: Ambience & Hospitality Showcase -->
+    <section class="py-5" id="ambience-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">Ambience & Hospitality</span>
+          <h2 class="section-title">Atmospheric Dining & Service Excellence</h2>
+          <p class="section-description">Every table is curated for exceptional comfort, culinary elegance, and unforgettable memories.</p>
+        </div>
+
+        <!-- Ambience Gallery Grid -->
+        <div class="ambience-grid">
+          <div class="ambience-card">
+            <div class="ambience-img-wrapper">
+              <img src="images/restaurant-interior.jpg" alt="Indoor Luxury Dining" loading="lazy">
+              <span class="ambience-tag"><i class="fas fa-home"></i> Indoor Hall</span>
+            </div>
+            <div class="ambience-body">
+              <h4>Indoor Grand Dining</h4>
+              <p>Climate-controlled acoustics, ambient pendant lamps, and comfortable leather booths for fine dining.</p>
+            </div>
+          </div>
+
+          <div class="ambience-card">
+            <div class="ambience-img-wrapper">
+              <img src="images/table-outdoor.jpg" alt="Alfresco Garden Terrace" loading="lazy">
+              <span class="ambience-tag"><i class="fas fa-umbrella-beach"></i> Outdoor</span>
+            </div>
+            <div class="ambience-body">
+              <h4>Alfresco Garden Terrace</h4>
+              <p>Fresh open-air breezes, lush botanical greenery, and evening string lights for relaxed dining.</p>
+            </div>
+          </div>
+
+          <div class="ambience-card">
+            <div class="ambience-img-wrapper">
+              <img src="images/table-garden.jpg" alt="Sunlit Window Side" loading="lazy">
+              <span class="ambience-tag"><i class="fas fa-sun"></i> Window Side</span>
+            </div>
+            <div class="ambience-body">
+              <h4>Sunlit Window Alcove</h4>
+              <p>Natural light and panoramic street views, perfect for intimate romantic dates and business lunches.</p>
+            </div>
+          </div>
+
+          <div class="ambience-card">
+            <div class="ambience-img-wrapper">
+              <img src="images/table-vip.jpg" alt="VIP Executive Lounge" loading="lazy">
+              <span class="ambience-tag"><i class="fas fa-crown"></i> VIP Lounge</span>
+            </div>
+            <div class="ambience-body">
+              <h4>VIP Executive Salon</h4>
+              <p>Exclusive private dining suites with dedicated butler service, crystal chandeliers, and soundproofing.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Management & Culinary Team Briefing Feature -->
+        <div class="team-briefing-card mt-5">
+          <div class="team-briefing-img">
+            <img src="images/restaurant-team.jpg" alt="Culinary & Service Team Briefing" loading="lazy">
+            <div class="team-briefing-badge">
+              <i class="fas fa-certificate text-gold"></i> Five-Star Hospitality Standard
+            </div>
+          </div>
+          <div class="team-briefing-content">
+            <span class="section-subtitle">Behind The Scenes</span>
+            <h3>Daily Service & Culinary Briefing</h3>
+            <p>
+              Before every lunch and dinner shift, our General Manager and Executive Culinary Brigade conduct rigorous service briefings. We review table allocations, guest preferences, VIP arrivals, dietary restrictions, and seasonal pairings to deliver flawless hospitality.
+            </p>
+            
+            <div class="briefing-highlights">
+              <div class="highlight-item">
+                <div class="highlight-icon"><i class="fas fa-stopwatch text-gold"></i></div>
+                <div>
+                  <strong>Zero-Wait Table Preparation</strong>
+                  <p>Tables are prepared and sanitized 15 minutes before your booked slot.</p>
+                </div>
+              </div>
+
+              <div class="highlight-item">
+                <div class="highlight-icon"><i class="fas fa-utensils text-gold"></i></div>
+                <div>
+                  <strong>Artisanal Kitchen Craft</strong>
+                  <p>Head chefs inspect every station for peak freshness and precision plating.</p>
+                </div>
+              </div>
+
+              <div class="highlight-item">
+                <div class="highlight-icon"><i class="fas fa-shield-alt text-gold"></i></div>
+                <div>
+                  <strong>Guaranteed Reservation Lock</strong>
+                  <p>MySQL ACID transactions ensure no double-booking or slot conflicts.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="briefing-action">
+              <a href="#booking-section" class="btn btn-primary">
+                <i class="fas fa-calendar-check"></i> Book Your Experience Now
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section 3: Reservation Booking Section -->
+    <section class="py-5" id="booking-section">
+      <div class="container">
+        <div class="booking-grid-wrapper">
+          
+          <!-- Booking Form Card -->
+          <div class="card booking-form-card">
+            <div class="card-header">
+              <h3><i class="fas fa-calendar-plus text-gold"></i> Book a Restaurant Table</h3>
+              <p>Reserve an available table. Validates party size and enforces a 2-hour dining window.</p>
+            </div>
+            
+            <form id="reservationForm">
+              <div class="form-group">
+                <label for="resCustomerSelect"><i class="fas fa-user text-gold"></i> Select Registered Customer</label>
+                <select id="resCustomerSelect" class="form-control" required>
+                  <option value="">-- Choose Customer --</option>
+                </select>
+                <small class="form-hint">New customer? <a href="#register-section">Register here first</a>.</small>
+              </div>
+
+              <div class="form-group">
+                <label for="resTableSelect"><i class="fas fa-chair text-gold"></i> Select Restaurant Table</label>
+                <select id="resTableSelect" class="form-control" required>
+                  <option value="">-- Choose Table --</option>
+                </select>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="resDate"><i class="fas fa-calendar text-gold"></i> Date</label>
+                  <input type="date" id="resDate" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="resTime"><i class="fas fa-clock text-gold"></i> Time</label>
+                  <input type="time" id="resTime" class="form-control" value="19:30" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="resGuests"><i class="fas fa-users text-gold"></i> Number of Guests</label>
+                <input type="number" id="resGuests" class="form-control" min="1" max="20" placeholder="e.g. 2" required>
+                <small class="form-hint">Guest count cannot exceed selected table seating capacity.</small>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block">
+                <i class="fas fa-check-circle"></i> Confirm Table Reservation
+              </button>
+            </form>
+          </div>
+
+          <!-- Booking Information & Policy Card -->
+          <div class="card info-policy-card">
+            <span class="section-subtitle text-gold">Dining Policy & Logic</span>
+            <h3>Reservation Business Rules</h3>
+            
+            <ul class="policy-list">
+              <li>
+                <i class="fas fa-clock text-gold"></i>
+                <div>
+                  <strong>2-Hour Slot Window:</strong>
+                  <p>Each confirmed reservation holds the table for 120 minutes. Conflicting requests within this window are rejected.</p>
+                </div>
+              </li>
+              <li>
+                <i class="fas fa-users text-gold"></i>
+                <div>
+                  <strong>Capacity Check:</strong>
+                  <p>Guest party size must not exceed the maximum seating capacity configured for the table.</p>
+                </div>
+              </li>
+              <li>
+                <i class="fas fa-undo text-gold"></i>
+                <div>
+                  <strong>Immediate Re-availability:</strong>
+                  <p>Cancelled reservations immediately release the table for other customers.</p>
+                </div>
+              </li>
+              <li>
+                <i class="fas fa-database text-gold"></i>
+                <div>
+                  <strong>Database Transactions:</strong>
+                  <p>All reservation inserts use ACID database transactions with rollback on failure.</p>
+                </div>
+              </li>
+            </ul>
+
+            <div class="table-legend">
+              <span class="legend-badge badge-indoor"><i class="fas fa-home"></i> Indoor</span>
+              <span class="legend-badge badge-outdoor"><i class="fas fa-umbrella-beach"></i> Outdoor</span>
+              <span class="legend-badge badge-window"><i class="fas fa-sun"></i> Window Side</span>
+              <span class="legend-badge badge-vip"><i class="fas fa-crown"></i> VIP Section</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Customer Registration Section -->
+    <section class="py-5 bg-light" id="register-section">
+      <div class="container">
+        <div class="registration-wrapper">
+          <div class="card registration-card">
+            <div class="card-header text-center">
+              <div class="icon-bubble"><i class="fas fa-user-plus text-gold"></i></div>
+              <h2>Customer Registration</h2>
+              <p>Register as a dining customer to book restaurant tables.</p>
+            </div>
+
+            <form id="customerRegisterForm">
+              <div class="form-group">
+                <label for="custName"><i class="fas fa-user text-gold"></i> Full Name</label>
+                <input type="text" id="custName" class="form-control" placeholder="e.g. Rohith Sharma" required>
+              </div>
+
+              <div class="form-group">
+                <label for="custEmail"><i class="fas fa-envelope text-gold"></i> Email Address</label>
+                <input type="email" id="custEmail" class="form-control" placeholder="e.g. rohith.sharma@example.com" required>
+              </div>
+
+              <div class="form-group">
+                <label for="custPhone"><i class="fas fa-phone text-gold"></i> Mobile Number</label>
+                <input type="tel" id="custPhone" class="form-control" placeholder="e.g. 9876543210" pattern="[0-9]{10}" title="Please enter a 10-digit mobile number">
+              </div>
+
+              <div class="form-group">
+                <label for="custPassword"><i class="fas fa-lock text-gold"></i> Password</label>
+                <input type="password" id="custPassword" class="form-control" placeholder="Min. 6 characters" minlength="6" required>
+                <small class="form-hint">Password is hashed using bcryptjs before storing in MySQL.</small>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block">
+                <i class="fas fa-user-check"></i> Register Customer Account
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Staff & Customer Reservation Management Table -->
+    <section class="py-5" id="reservations-section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-subtitle">Reservations Master</span>
+          <h2 class="section-title">Reservation Records Management</h2>
+          <p class="section-description">View, search, filter, and cancel dining reservations. Synchronized with MySQL.</p>
+        </div>
+
+        <!-- Search and Filter Toolbar -->
+        <div class="toolbar-card">
+          <div class="search-input-wrapper">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="searchReservationsInput" class="form-control search-input" placeholder="Search by customer name, phone, email, or table number...">
+          </div>
+
+          <div class="filter-controls">
+            <select id="statusFilterSelect" class="form-control">
+              <option value="All">All Statuses</option>
+              <option value="Confirmed">Confirmed Bookings</option>
+              <option value="Cancelled">Cancelled Bookings</option>
+            </select>
+
+            <button type="button" id="refreshReservationsBtn" class="btn btn-outline" title="Refresh records">
+              <i class="fas fa-sync-alt"></i> Refresh
+            </button>
+          </div>
+        </div>
+
+        <!-- Reservations Data Table -->
+        <div class="card table-card-wrapper">
+          <div class="table-responsive">
+            <table class="data-table" id="reservationsTable">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Customer Details</th>
+                  <th>Table</th>
+                  <th>Capacity</th>
+                  <th>Location</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Guests</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="reservationsTableBody">
+                <tr>
+                  <td colspan="10" class="text-center py-4">
+                    <i class="fas fa-spinner fa-spin text-gold"></i> Loading reservations from database...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <div class="brand-logo-icon"><i class="fas fa-utensils"></i></div>
+        <h3>Restaurant Table Reservation Management System</h3>
+        <p>Built with Node.js, Express.js, MySQL (mysql2), and Vanilla JavaScript.</p>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Restaurant Table Reservation Management System. B.Tech CSE Mini-Project.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>

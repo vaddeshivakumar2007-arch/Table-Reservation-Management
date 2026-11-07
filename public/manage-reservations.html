@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Reservations | Admin – Shiva</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body id="manageReservationsContainer">
+
+  <!-- Top Announcement Bar -->
+  <div class="top-announcement" style="background: #090b0c;">
+    <div class="container">
+      <div>
+        <i class="fas fa-book-open text-gold"></i> Complete Reservations Master – Shiva
+      </div>
+      <div>
+        <a href="admin-dashboard.html"><i class="fas fa-arrow-left"></i> Back to Admin Dashboard</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Navigation Bar -->
+  <nav class="navbar" style="border-bottom: 2px solid var(--primary);">
+    <div class="container">
+      <a href="admin-dashboard.html" class="nav-brand">
+        <div class="brand-logo-icon" style="background: #111;"><i class="fas fa-utensils text-gold"></i></div>
+        <div>Admin Portal <span class="text-gold">– Shiva</span></div>
+      </a>
+
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <ul class="nav-menu">
+        <li><a href="admin-dashboard.html" class="nav-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+        <li><a href="manage-tables.html" class="nav-link"><i class="fas fa-chair"></i> Manage Tables</a></li>
+        <li><a href="manage-reservations.html" class="nav-link active"><i class="fas fa-book"></i> Reservations</a></li>
+        <li><a href="manage-customers.html" class="nav-link"><i class="fas fa-users"></i> Customers</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button onclick="handleAdminLogout()" class="btn btn-dark btn-sm">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content Wrapper -->
+  <main class="dashboard-wrapper">
+    <div class="container">
+      
+      <!-- Header & Filter Bar -->
+      <div class="dashboard-header">
+        <div class="dashboard-header-text">
+          <h1>Customer Reservations <span class="text-gold">Master</span></h1>
+          <p>Approve or reject pending table bookings, modify booking statuses, and view complete dining history.</p>
+        </div>
+        <div style="display: flex; gap: 0.8rem; align-items: center; flex-wrap: wrap;">
+          <div class="form-group" style="margin: 0;">
+            <select id="adminFilterStatus" class="form-control" style="height: 42px; font-size: 0.9rem;">
+              <option value="All">All Statuses</option>
+              <option value="Pending" selected>Pending Review</option>
+              <option value="Confirmed">Confirmed Bookings</option>
+              <option value="Rejected">Rejected</option>
+              <option value="Cancelled">Cancelled by Diner</option>
+              <option value="Completed">Completed Dinings</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="margin: 0;">
+            <input type="date" id="adminFilterDate" class="form-control" style="height: 42px; font-size: 0.9rem;" title="Filter by date">
+          </div>
+
+          <button onclick="document.getElementById('adminFilterStatus').value='All'; document.getElementById('adminFilterDate').value=''; loadAdminReservations();" class="btn btn-outline btn-sm" style="height: 42px;" title="Reset filters">
+            <i class="fas fa-redo"></i> Reset
+          </button>
+        </div>
+      </div>
+
+      <!-- Reservations Data Table Card -->
+      <div style="background: #ffffff; padding: 2rem; border-radius: var(--radius-md); box-shadow: var(--shadow-sm);">
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Guest / Customer</th>
+                <th>Assigned Table</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Guests</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="reservationsAdminTbody">
+              <tr>
+                <td colspan="8" class="text-center" style="padding: 2.5rem;">
+                  <i class="fas fa-spinner fa-spin text-gold" style="font-size: 1.8rem;"></i>
+                  <p style="margin-top: 0.5rem; color: #888;">Retrieving reservations data...</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2026 Restaurant Table Reservation Management System – Shiva. Admin Reservations Controller.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
+
